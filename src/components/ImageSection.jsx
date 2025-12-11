@@ -43,7 +43,7 @@ const ImageSection = () => {
           />
 
           {/* Name */}
-          <h2 className="text-white text-2xl font-semibold mt-4">Md Asif</h2>
+          <h2 className="text-white text-2xl font-semibold mt-4">Asif</h2>
 
           {/* Role */}
           <p className="text-white/70 text-sm mt-2">MERN Stack Developer</p>

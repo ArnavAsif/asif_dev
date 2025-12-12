@@ -48,12 +48,12 @@ const Project = ({
             />
 
             {/* Live Preview Button */}
-            <div className="absolute top-4 right-4 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+            <div className="absolute top-4 md:right-4 right-2 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
               <a
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
+                className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-2 md:px-4 py-2 text-[10px] md:text-sm font-medium text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
                 onClick={(e) => e.stopPropagation()}
               >
                 <span>Live Demo</span>
@@ -73,12 +73,12 @@ const Project = ({
               </a>
             </div>
             {/* Github button */}
-            <div className="absolute top-4 left-4 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+            <div className="absolute top-4 md:left-4 left-2 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
               <a
                 href={github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
+                className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-2 md:px-4 py-2 text-[10px] md:text-sm font-medium text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300"
                 onClick={(e) => e.stopPropagation()}
               >
                 <span>Github Link</span>

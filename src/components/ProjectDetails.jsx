@@ -12,7 +12,7 @@ const ProjectDetails = ({
   github,
   closeModal,
 }) => {
-  // Prevent background scrolling when modal is open
+  // Prevent background scroll
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -20,7 +20,7 @@ const ProjectDetails = ({
     };
   }, []);
 
-  // Handle escape key press
+  // Close on Escape
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") closeModal();
@@ -31,26 +31,25 @@ const ProjectDetails = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center w-full h-full overflow-y-auto bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-black/75 transition-all"
       onClick={(e) => {
-        // Close modal when clicking on backdrop
         if (e.target === e.currentTarget) {
           closeModal();
         }
       }}
     >
       <motion.div
-        className="relative w-[95%] max-w-2xl mx-auto my-4 border shadow-lg rounded-2xl bg-gradient-to-l from-midnight to-navy border-white/10"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className="relative w-[95%] max-w-2xl mx-auto my-4 border border-white/10 
+        shadow-md rounded-2xl bg-gradient-to-b from-midnight/95 to-navy/90"
+        initial={{ opacity: 0, scale: 0.93, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.93, y: 20 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       >
-        {/* Close Button - Fixed for mobile */}
+        {/* Close Button */}
         <button
           onClick={closeModal}
-          className="fixed md:absolute top-4 right-4 p-3 rounded-full bg-black/80 backdrop-blur-md hover:bg-gray-700/80 z-50 transition-all"
-          aria-label="Close modal"
+          className="absolute top-4 right-4 p-2 rounded-full bg-black/60 hover:bg-black/80 transition-all z-50"
         >
           <svg
             className="w-6 h-6 text-white"
@@ -72,21 +71,22 @@ const ProjectDetails = ({
           <img
             src={image}
             alt={title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-48 md:h-64 object-cover rounded-t-2xl"
           />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-transparent to-transparent rounded-t-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-t-2xl" />
         </div>
 
-        {/* Content Section */}
+        {/* Content */}
         <div className="p-5 md:p-8 max-h-[70vh] md:max-h-[60vh] overflow-y-auto">
           {/* Title */}
-          <h5 className="mb-3 md:mb-4 text-2xl md:text-3xl font-bold text-white">
+          <h5 className="mb-4 text-2xl md:text-3xl font-bold text-white">
             {title}
           </h5>
 
           {/* Description */}
-          <p className="mb-4 text-base md:text-lg text-neutral-300">
+          <p className="mb-4 text-neutral-300 text-base md:text-lg">
             {description}
           </p>
 
@@ -99,8 +99,8 @@ const ProjectDetails = ({
             ))}
           </div>
 
-          {/* Tech Stack Tags */}
-          <div className="mb-6 md:mb-8">
+          {/* Tech Stack */}
+          <div className="mb-8">
             <h6 className="text-sm font-semibold text-neutral-400 mb-3">
               Tech Stack
             </h6>
@@ -114,12 +114,12 @@ const ProjectDetails = ({
                     <img
                       src={tag.path}
                       alt={tag.name}
-                      className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-contain bg-neutral-800/50 p-1"
+                      className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-contain bg-neutral-800/40 p-1"
                       title={tag.name}
                     />
                   ) : (
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-neutral-800/50 flex items-center justify-center">
-                      <span className="text-xs font-medium text-neutral-300">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-neutral-800/40 rounded-lg flex items-center justify-center">
+                      <span className="text-xs text-neutral-300">
                         {tag.name.charAt(0)}
                       </span>
                     </div>
@@ -132,15 +132,16 @@ const ProjectDetails = ({
             </div>
           </div>
 
-          {/* Links Section */}
-          <div className="pt-4 md:pt-6 border-t border-white/10">
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              {/* Live Project Link */}
+          {/* Buttons */}
+          <div className="pt-4 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row gap-3">
+              {/* Live Link */}
               <a
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-5 py-3 font-medium text-white bg-primary rounded-xl hover:bg-primary/80 transition-all hover:shadow-lg hover:shadow-primary/20 flex-1 text-center"
+                className="flex items-center justify-center gap-2 px-5 py-3 font-medium text-white 
+                bg-primary rounded-xl hover:bg-primary/80 transition-all flex-1"
               >
                 <svg
                   className="w-5 h-5"
@@ -158,45 +159,25 @@ const ProjectDetails = ({
                 <span>Live Project</span>
               </a>
 
-              {/* GitHub Link - Only show if github prop exists */}
+              {/* GitHub */}
               {github && (
                 <a
                   href={github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-5 py-3 font-medium text-white bg-neutral-800/50 rounded-xl hover:bg-neutral-700 transition-all border border-neutral-700/50 flex-1 text-center"
+                  className="flex items-center justify-center gap-2 px-5 py-3 font-medium text-white 
+                  bg-neutral-800/40 rounded-xl hover:bg-neutral-700/70 transition-all border border-neutral-700/40 flex-1"
                 >
                   <svg
                     className="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.57v-2.23c-3.34.72-4.03-1.42-4.03-1.42-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.84 2.81 1.3 3.49.99.11-.78.42-1.31.76-1.61-2.66-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23A10.94 10.94 0 0112 6.2c1.02.01 2.05.14 3.01.41 2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18a4.52 4.52 0 011.24 3.22c0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.7.8.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
                   </svg>
                   <span>GitHub</span>
                 </a>
               )}
-
-              {/* Close Button for mobile - Secondary option */}
-              <button
-                onClick={closeModal}
-                className="flex items-center justify-center gap-2 px-5 py-3 font-medium text-white bg-neutral-800/30 rounded-xl hover:bg-neutral-700/50 transition-all border border-neutral-700/30 sm:hidden"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-                <span>Close</span>
-              </button>
             </div>
           </div>
         </div>

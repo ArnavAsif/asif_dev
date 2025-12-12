@@ -7,17 +7,25 @@ const ImageSection = () => {
       className="w-full flex justify-center px-4 sm:px-6 lg:px-8 md:pt-33 pt-4 relative z-10 overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 1.3 }}
     >
       {/* Outer Container */}
       <motion.div
+        animate={{
+          y: [0, -10, 0], // floating effect
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+        }}
         whileHover={{
           scale: 1.03,
           y: -6,
           boxShadow: "0 0 45px rgba(255, 0, 255, 0.25)",
         }}
-        transition={{ duration: 0.3 }}
-        className="relative bg-[#0f0f0f] rounded-3xl p-4 sm:p-6 lg:p-8 shadow-[0_0_30px_rgba(0,0,0,0.6)] max-w-[420px] w-full overflow-hidden"
+        className="relative bg-[#0f0f0f] rounded-3xl p-4 sm:p-6 lg:p-14 shadow-[0_0_30px_rgba(0,0,0,0.6)] max-w-[420px] w-full overflow-hidden"
       >
         {/* MERN Badge - Top Left */}
         <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs sm:text-sm px-3 py-1 rounded-full font-semibold shadow-md">

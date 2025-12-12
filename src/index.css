@@ -142,3 +142,40 @@ body {
 .field-input-focus {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20;
 }
+
+@keyframes glow-pulse {
+  0% {
+    box-shadow: 0 0 12px rgba(0, 195, 255, 0.6), 0 0 24px rgba(0, 195, 255, 0.4),
+      0 0 36px rgba(0, 195, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 195, 255, 0.9), 0 0 35px rgba(0, 195, 255, 0.7),
+      0 0 50px rgba(0, 195, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(0, 195, 255, 0.6), 0 0 24px rgba(0, 195, 255, 0.4),
+      0 0 36px rgba(0, 195, 255, 0.2);
+  }
+}
+
+.animate-glow {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+@keyframes glow-pulse-purple {
+  0% {
+    box-shadow: 0 0 12px rgba(186, 85, 255, 0.6),
+      0 0 24px rgba(186, 85, 255, 0.4), 0 0 36px rgba(186, 85, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(186, 85, 255, 0.9),
+      0 0 35px rgba(186, 85, 255, 0.7), 0 0 50px rgba(186, 85, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(186, 85, 255, 0.6),
+      0 0 24px rgba(186, 85, 255, 0.4), 0 0 36px rgba(186, 85, 255, 0.2);
+  }
+}
+
+.animate-glow-purple {
+  animation: glow-pulse-purple 2.5s ease-in-out infinite;
+}

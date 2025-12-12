@@ -11,6 +11,7 @@ export const myProjects = [
       "Added payment systems, localization, and product filtering for functionality improvements.",
     ],
     href: "",
+    github: "https://github.com/arnavasif",
     logo: "",
     image: "/assets/projects/accessories.jpg",
     tags: [
@@ -48,6 +49,7 @@ export const myProjects = [
       "Connected to a secure SQLite database for user data storage.",
     ],
     href: "",
+    github: "",
     logo: "",
     image: "/assets/projects/auth-system.jpg",
     tags: [
@@ -85,6 +87,7 @@ export const myProjects = [
       "Integrated SQLite for efficient client-side database storage.",
     ],
     href: "",
+    github: "",
     logo: "",
     image: "/assets/projects/blazor-app.jpg",
     tags: [
@@ -122,6 +125,7 @@ export const myProjects = [
       "Optimized performance with multi-threading and efficient memory management.",
     ],
     href: "",
+    github: "",
     logo: "",
     image: "/assets/projects/game-engine.jpg",
     tags: [
@@ -159,6 +163,7 @@ export const myProjects = [
       "Implemented custom widgets and plugin compatibility for extended functionality.",
     ],
     href: "",
+    github: "",
     logo: "",
     image: "/assets/projects/wordpress-theme.jpg",
     tags: [
@@ -196,6 +201,45 @@ export const myProjects = [
       "Integrated Stripe API for secure payment processing.",
     ],
     href: "",
+    github: "",
+    logo: "",
+    image: "/assets/projects/elearning.jpg",
+    tags: [
+      {
+        id: 1,
+        name: "Blazor",
+        path: "/assets/logos/blazor.svg",
+      },
+      {
+        id: 2,
+        name: "Azure",
+        path: "/assets/logos/azure.svg",
+      },
+      {
+        id: 3,
+        name: "Stripe",
+        path: "/assets/logos/stripe.svg",
+      },
+      {
+        id: 4,
+        name: "TailwindCSS",
+        path: "/assets/logos/tailwindcss.svg",
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "Online Learning Platform",
+    description:
+      "A web application that allows users to enroll in courses, watch video lectures, and take quizzes.",
+    subDescription: [
+      "Built using Blazor WebAssembly for a seamless SPA experience.",
+      "Implemented video streaming with Azure Media Services.",
+      "Added a quiz system with dynamic question generation and real-time grading.",
+      "Integrated Stripe API for secure payment processing.",
+    ],
+    href: "",
+    github: "",
     logo: "",
     image: "/assets/projects/elearning.jpg",
     tags: [

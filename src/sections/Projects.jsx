@@ -1,34 +1,80 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Project from "../components/Project";
 import { myProjects } from "../constants";
-import { motion, useMotionValue, useSpring } from "motion/react";
+
+const ITEMS_PER_LOAD = 6;
+
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
 const Projects = () => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { damping: 10, stiffness: 50 });
-  const springY = useSpring(y, { damping: 10, stiffness: 50 });
-  const handleMouseMove = (e) => {
-    x.set(e.clientX + 20);
-    y.set(e.clientY + 20);
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
+
+  const showMore = () => {
+    setVisibleCount((prev) => prev + ITEMS_PER_LOAD);
   };
-  const [preview, setPreview] = useState(null);
+
   return (
-    <section
-      id="work"
-      onMouseMove={handleMouseMove}
-      className="relative c-space section-spacing"
-    >
+    <section id="work" className="relative c-space section-spacing">
       <h2 className="text-heading">My Selected Projects</h2>
       <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent mt-12 h-[1px] w-full" />
-      {myProjects.map((project) => (
-        <Project key={project.id} {...project} setPreview={setPreview} />
-      ))}
-      {preview && (
-        <motion.img
-          className="fixed top-0 left-0 z-50 object-cover h-56 rounded-lg shadow-lg pointer-events-none w-80"
-          src={preview}
-          style={{ x: springX, y: springY }}
-        />
+
+      {/* Animated Grid */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 mt-12"
+      >
+        {myProjects.slice(0, visibleCount).map((project) => (
+          <motion.div key={project.id} variants={item}>
+            <Project {...project} />
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Show More Button */}
+      {visibleCount < myProjects.length && (
+        <div className="flex justify-center mt-8">
+          <motion.button
+            onClick={showMore}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{
+              scale: 1.07,
+              boxShadow: "0px 0px 30px rgba(0, 180, 255, 0.8)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="relative px-7 py-3 rounded-xl text-white font-medium overflow-hidden bg-gradient-to-r from-primary via-primary/80 to-purple-600 border border-neutral-700"
+          >
+            {/* Glow Background */}
+            <motion.span
+              className="absolute inset-0 bg-blue-600 opacity-20 blur-2xl"
+              animate={{
+                opacity: [0.15, 0.35, 0.15],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
+
+            {/* Button Text */}
+            <span className="relative z-10">Show More Projects</span>
+          </motion.button>
+        </div>
       )}
     </section>
   );

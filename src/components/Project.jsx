@@ -13,27 +13,42 @@ const Project = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isModalLoading, setIsModalLoading] = useState(false); // Modal loading state
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    setIsModalLoading(true);
+
+    setTimeout(() => {
+      setIsModalLoading(false);
+    }, 700);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setIsModalLoading(false);
+  };
 
   return (
     <>
-      {/* Project Card with Enhanced Border */}
+      {/* Project Card */}
       <div
         className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900/80 to-black backdrop-blur-xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Main Border - Visible at all times */}
+        {/* Main Border */}
         <div className="absolute inset-0 rounded-3xl p-[1.5px] bg-gradient-to-br from-neutral-700/50 via-neutral-600/30 to-neutral-700/50 z-0" />
 
-        {/* Animated Glow Border - Appears on hover */}
+        {/* Animated Glow Border */}
         <div className="absolute inset-0 rounded-3xl p-[1.5px] bg-gradient-to-r from-primary/30 via-purple-500/20 to-cyan-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0" />
 
-        {/* Inner Content Container */}
+        {/* Inner Content */}
         <div className="relative rounded-[calc(1.5rem-1.5px)] overflow-hidden bg-gradient-to-br from-neutral-900/90 to-black z-10">
-          {/* Inner Glow Effect */}
+          {/* Inner Glow */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-          {/* Image Section with Parallax Effect */}
+          {/* Image Section */}
           <div className="relative h-56 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
             <img
@@ -47,7 +62,7 @@ const Project = ({
               }}
             />
 
-            {/* Live Preview Button */}
+            {/* Live Demo Button */}
             <div className="absolute top-4 md:right-4 right-2 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
               <a
                 href={href}
@@ -72,7 +87,8 @@ const Project = ({
                 </svg>
               </a>
             </div>
-            {/* Github button */}
+
+            {/* GitHub Button */}
             <div className="absolute top-4 md:left-4 left-2 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
               <a
                 href={github}
@@ -101,12 +117,10 @@ const Project = ({
 
           {/* Content Section */}
           <div className="relative p-7">
-            {/* Title with Gradient Text */}
             <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-white to-primary/80 bg-clip-text text-transparent">
               {title}
             </h3>
 
-            {/* Description with animated underline */}
             <div className="relative mb-6">
               <p className="text-neutral-300 leading-relaxed line-clamp-2">
                 {description}
@@ -128,15 +142,11 @@ const Project = ({
               </div>
             </div>
 
-            {/* CTA Button with Animation */}
+            {/* Explore Project Button */}
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleOpenModal}
               className="group/btn relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary/80 to-purple-600 px-6 py-3.5 text-white font-semibold transition-all duration-500 hover:shadow-xl hover:shadow-primary/30"
             >
-              {/* Button Glow */}
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
-
-              {/* Button Content */}
               <span className="relative flex items-center justify-center gap-3">
                 Explore Project
                 <svg
@@ -155,14 +165,6 @@ const Project = ({
               </span>
             </button>
           </div>
-
-          {/* Corner Accents */}
-          <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden">
-            <div className="absolute top-3 right-3 w-3 h-3 rounded-full border border-primary/50 bg-primary/20 animate-pulse" />
-          </div>
-          <div className="absolute bottom-0 left-0 w-20 h-20 overflow-hidden">
-            <div className="absolute bottom-3 left-3 w-2 h-2 rounded-full border border-purple-500/50 bg-purple-500/20 animate-pulse delay-300" />
-          </div>
         </div>
 
         {/* Outer Corner Borders */}
@@ -174,15 +176,29 @@ const Project = ({
 
       {/* Modal */}
       {isModalOpen && (
-        <ProjectDetails
-          title={title}
-          description={description}
-          subDescription={subDescription}
-          image={image}
-          tags={tags}
-          href={href}
-          closeModal={() => setIsModalOpen(false)}
-        />
+        <div className="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-black/80 backdrop-blur-sm">
+          {isModalLoading ? (
+            // Full Modal Loading
+            <div className="flex flex-col items-center justify-center gap-4">
+              <div className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="text-white font-medium text-lg">
+                Loading Project...
+              </span>
+            </div>
+          ) : (
+            // Actual Modal Content
+            <ProjectDetails
+              title={title}
+              description={description}
+              subDescription={subDescription}
+              image={image}
+              tags={tags}
+              href={href}
+              github={github}
+              closeModal={handleCloseModal}
+            />
+          )}
+        </div>
       )}
     </>
   );
